@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ブログ投稿一覧{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h3 class="mb-3">ブログ投稿一覧</h3>
+
+    <div class="d-flex align-items-center mb-4">
+        <div class="dropdown me-3">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                並び替え:
+                {% if current_sort == 'oldest' %}古い順{% elif current_sort == 'likes' %}いいね順{% elif current_sort == 'comments' %}コメント数順{% else %}新しい順{% endif %}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="sortDropdown">
+                <li><a class="dropdown-item {% if current_sort == 'newest' %}active{% endif %}" href="?sort=newest">新しい順</a></li>
+                <li><a class="dropdown-item {% if current_sort == 'oldest' %}active{% endif %}" href="?sort=oldest">古い順</a></li>
+                <li><a class="dropdown-item {% if current_sort == 'comments' %}active{% endif %}" href="?sort=comments">コメント数順</a></li>
+                <li><a class="dropdown-item {% if current_sort == 'likes' %}active{% endif %}" href="?sort=likes">いいね順</a></li>
+            </ul>
+        </div>
+        <a href="{% url 'blog:post_new' %}" class="btn btn-primary">新しい投稿を作成</a>
+    </div>
+
+    <div style="max-height: 600px; overflow-y: auto;">
+        {% if posts %}
+            {% for post in posts %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row g-0">
+                        {% if post.image %}
+                        <div class="col-md-2">
+                            <img src="{{ post.image.url }}" class="img-fluid rounded-start" alt="{{ post.title }}">
+                        </div>
+                        <div class="col-md-10">
+                            <div class="card-body">
+                                <h2 class="card-title"><a href="{% url 'blog:post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+                                <p class="card-text">
+                                    <small class="text-muted">
+                                        投稿者: {{ post.author.username }} | {{ post.created_at|date:"Y年m月d日" }}
+                                    </small>
+                                </p>
+                                <p>{{ post.content|truncatechars:150 }}</p>
+                                <div class="d-flex align-items-center mt-2">
+                                    <span class="me-3">
+                                        <i class="fa-solid fa-comment"></i> {{ post.comments.count }}
+                                    </span>
+                                    <span class="me-3">
+                                        {% if user.is_authenticated %}
+                                        <form action="{% url 'blog:post_like' pk=post.pk %}" method="post" class="d-inline">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-link text-decoration-none p-0" style="color: inherit;">
+                                                {% if user in post.in_likes %}
+                                                    <i class="fa-solid fa-thumbs-up text-primary"></i>
+                                                {% else %}
+                                                    <i class="fa-regular fa-thumbs-up"></i>
+                                                {% endif %}
+                                            </button>
+                                        </form>
+                                        {% else %}
+                                        <i class="fa-regular fa-thumbs-up"></i>
+                                        {% endif %}
+                                        {{ post.likes.count }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="col-md-12">
+                            <div class="card-body">
+                                <h2 class="card-title"><a href="{% url 'blog:post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+                                <p class="card-text">
+                                    <small class="text-muted">
+                                        投稿者: {{ post.author.username }} | {{ post.created_at|date:"Y年m月d日" }}
+                                    </small>
+                                </p>
+                                <p>{{ post.content|truncatechars:150 }}</p>
+                                <div class="d-flex align-items-center mt-2">
+                                    <span class="me-3">
+                                        <i class="fa-solid fa-comment"></i> {{ post.comments.count }}
+                                    </span>
+                                    <span class="me-3">
+                                        {% if user.is_authenticated %}
+                                        <form action="{% url 'blog:post_like' pk=post.pk %}" method="post" class="d-inline">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-link text-decoration-none p-0" style="color: inherit;">
+                                                {% if user in post.in_likes %}
+                                                    <i class="fa-solid fa-thumbs-up text-primary"></i>
+                                                {% else %}
+                                                    <i class="fa-regular fa-thumbs-up"></i>
+                                                {% endif %}
+                                            </button>
+                                        </form>
+                                        {% else %}
+                                        <i class="fa-regular fa-thumbs-up"></i>
+                                        {% endif %}
+                                        {{ post.likes.count }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-center">まだ投稿がありません。</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

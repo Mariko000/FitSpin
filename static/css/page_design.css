@@ -1,0 +1,220 @@
+/* ============================
+   カラーテーマ（ポータルサイト用）
+   ============================ */
+   :root {
+    --color-bg: #FBFBFB;          /* 背景色 */
+    --color-text: #444444;        /* 基本文字色 */
+    --color-accent: #AFAFAF;      /* グレージュ */
+  }
+  
+  /* ============================
+     ベーススタイル
+     ============================ */
+
+     /* 全体を縦に並べる */
+/* 余白リセット */
+html, body {
+    height: 100%;
+  }
+  
+  body {
+      display: flex;
+      flex-direction: column;
+  }
+  
+  #wrapper {
+      flex: 1; /* 残りのスペースをすべて占有 */
+  }
+
+/* ヘッダー固定 */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;  /* ヘッダーの高さ */
+    /* border-bottom: 1px solid var(--color-accent);*/
+    z-index: 1000;
+  }
+
+ /* メイン領域はスクロール可能 */
+.site-main {
+     /*min-height: calc(100vh - 60px - 80px); /* 画面高 - ヘッダー - フッター */
+    margin-top: 1rem; /* ヘッダーの高さ + 欲しい余白分 */ 
+    padding: 2rem;
+    box-sizing: border-box;
+    flex: 1;
+  }
+  
+
+  
+  /* 余白とタイポグラフィ主体のデザイン */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  
+  p {
+    margin: 1rem 0;
+    font-size: 1rem;
+  }
+  
+  /* ============================
+     リンク
+     ============================ */
+  a {
+    color: var(--color-text);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  a:hover {
+    color: var(--color-accent);
+  }
+  
+  /* ============================
+     ボタン（1ページ1〜2個まで）
+     ============================ */
+ /* ============================
+   カスタムボタン（ボーダーアニメーション）
+   ============================ */
+
+   .btn-custom {
+    position: relative;
+    display: inline-block;
+    padding: 0.6rem 1.4rem;
+    font-size: 1rem;
+    background: transparent;
+    color: var(--color-text);
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    transition: color 0.3s ease;
+  }
+  
+  /* 各線を4本作る */
+  .btn-custom::before,
+  .btn-custom::after,
+  .btn-custom span::before,
+  .btn-custom span::after {
+    content: "";
+    position: absolute;
+    background: var(--color-accent);
+    transition: all 0.3s ease;
+  }
+  
+  /* 上線 */
+  .btn-custom::before {
+    top: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+  }
+  
+  /* 右線 */
+  .btn-custom::after {
+    top: 0;
+    right: 0;
+    width: 2px;
+    height: 0;
+  }
+  
+  /* 下線 */
+  .btn-custom span::before {
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+  }
+  
+  /* 左線 */
+  .btn-custom span::after {
+    top: 0;
+    left: 0;
+    width: 2px;
+    height: 0;
+  }
+  
+  /* hover 時に順番に線を描く */
+  .btn-custom:hover {
+    color: var(--color-accent);
+  }
+  
+  .btn-custom:hover::before {
+    width: 100%;
+    transition-delay: 0s; /* 上 */
+  }
+  
+  .btn-custom:hover::after {
+    height: 100%;
+    transition-delay: 0.3s; /* 右 */
+  }
+  
+  .btn-custom:hover span::before {
+    width: 100%;
+    transition-delay: 0.6s; /* 下 */
+  }
+  
+  .btn-custom:hover span::after {
+    height: 100%;
+    transition-delay: 0.9s; /* 左 */
+  }
+  
+  /* ページ全体のフェード */
+.fade-transition {
+    opacity: 1;
+    transition: opacity 0.6s ease;
+  }
+  
+  .fade-out {
+    opacity: 0;
+  } 
+
+  #scroll-icon {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    color: var(--color-accent);
+    animation: bounce 2s infinite; /* アニメーションを追加 */
+    cursor: pointer;
+}
+
+/* 最後のページでアイコンを非表示にする */
+.hide-icon #scroll-icon {
+    display: none;
+}
+
+ /* フッター */
+ .site-footer {
+    border: 1px solid var(--color-accent);
+    flex-shrink: 0;
+
+  }
+
+/* バウンスアニメーション定義 */
+@keyframes bounce {
+    0%   { transform: scale(1); }
+    30%  { transform: scale(1.3); }
+    50%  { transform: scale(0.9); }
+    70%  { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+  
+  /* いいねボタンがクリックされたときにクラス付与 */
+  .bounce {
+    animation: bounce 0.5s;
+  }
+
+/* タイピングアニメーションのカーソル */
+.typing-cursor {
+  font-weight: 700;
+  animation: blink-caret .75s step-end infinite;
+}
+
+/* カーソルアニメーションのキーフレーム */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: orange } /* カーソルの色 */
+}

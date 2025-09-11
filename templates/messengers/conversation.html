@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}チャット画面{% endblock %}
+
+{% block content %}
+
+<div class="chat-container">
+  <h2>{{ other_user.username }}とのチャット画面</h2>
+
+  <div class="messages">
+    {% for message in chat_messages %}
+      <div class="message-wrapper {% if message.sender == request.user %}sent{% else %}received{% endif %}">
+  
+        {% if message.sender != request.user %}
+          <div class="avatar">
+            {% if message.sender.avatar %}
+              <img src="{{ message.sender.avatar.url }}" alt="アバター画像" class="chat-avatar">
+            {% else %}
+              <img src="{% static 'images/default_avatar.png' %}" alt="デフォルトアバター" class="chat-avatar">
+            {% endif %}
+          </div>
+        {% endif %}
+  
+        <div class="message-bubble {% if message.sender == request.user %}sent{% else %}received{% endif %}">
+          <p>{{ message.content }}</p>
+          <small class="message-time">{{ message.created_at|date:"Y年m月d日 H:i" }}</small>
+        </div>
+  
+        {% if message.sender == request.user %}
+          <div class="avatar">
+            {% if request.user.avatar %}
+              <img src="{{ request.user.avatar.url }}" alt="あなたのアバター" class="chat-avatar">
+            {% else %}
+              <img src="{% static 'images/default_avatar.png' %}" alt="デフォルトアバター" class="chat-avatar">
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+
+  <form method="post">
+    {% csrf_token %}
+    <textarea name="content" placeholder="メッセージを入力..."></textarea>
+    <button type="submit">送信</button>
+  </form>
+</div>
+
+<style>
+
+body{
+  background-color: #fcfcfc;
+}
+main { padding-top: 20px; }
+/* chat-container */
+.chat-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* messages */
+.messages {
+  max-height: 500px;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* message-wrapper: アバターと吹き出しのコンテナ */
+.message-wrapper {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  gap: 10px; /* アバターと吹き出しの間の隙間 */
+}
+
+/* 送信したメッセージ */
+.message-wrapper.sent {
+  align-self: flex-end; /* 右寄せ */
+  flex-direction: row-reverse; /* アバターを右に配置 */
+}
+
+/* 受信したメッセージ */
+.message-wrapper.received {
+  align-self: flex-start; /* 左寄せ */
+}
+
+/* アバター画像 */
+.chat-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* メッセージ吹き出しの共通スタイル */
+.message-bubble {
+  position: relative;
+  max-width: 75%;
+  padding: 10px 15px;
+  border-radius: 20px;
+  color: #000;
+  word-wrap: break-word;
+}
+
+/* あなたの吹き出し */
+.message-bubble.sent {
+  background-color: #dcf8c6; /* 緑系の色 */
+  border-bottom-right-radius: 4px; /* 尖らせるための調整 */
+}
+/* あなたの吹き出しの尖った部分 */
+.message-bubble.sent::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -8px; /* 吹き出しの右端に配置 */
+  width: 15px;
+  height: 15px;
+  background-color: #dcf8c6;
+  clip-path: polygon(100% 0, 0 0, 100% 100%); /* 三角形に切り抜く */
+}
+
+/* 相手の吹き出し */
+.message-bubble.received {
+  background-color: #f0f0f0;
+  border-bottom-left-radius: 4px; /* 尖らせるための調整 */
+}
+/* 相手の吹き出しの尖った部分 */
+.message-bubble.received::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -8px; /* 吹き出しの左端に配置 */
+  width: 15px;
+  height: 15px;
+  background-color: #f0f0f0;
+  clip-path: polygon(0 0, 100% 0, 0 100%); /* 三角形に切り抜く */
+}
+
+/* メッセージ内のテキスト */
+.message-bubble p {
+  margin: 0;
+}
+
+/* メッセージ内の時間 */
+.message-bubble .message-time {
+  display: block;
+  font-size: 0.7rem;
+  color: #999;
+  margin-top: 5px;
+  text-align: right;
+}
+
+/* その他の要素のスタイル（フォームなど） */
+form {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  gap: 8px;
+}
+textarea {
+  flex-grow: 1;
+  resize: none;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 8px; /* パディングを小さくする */
+  font-size: 0.9rem; /* フォントサイズを小さくする */
+}
+button {
+  background-color: #a1a1a1;
+  color: white;
+  border: none;
+  padding: 8px 16px; /* パディングを小さくする */
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 0.9rem; /* フォントサイズを小さくする */
+}
+button:hover {
+  background-color: #888888;
+}
+</style>
+
+{% endblock %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const messagesDiv = document.querySelector(".messages");
+    if (messagesDiv) {
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+  });
+</script>
