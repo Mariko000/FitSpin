@@ -15,8 +15,9 @@
     <div class="card shadow-sm border-0">
       <div class="card-body">
         <p>
-          余白＋タイポグラフィ主体のデザイン。<br>
-          シンプルな配色でアプリ紹介に集中できるようにしました。
+          アプリ全体は余白とタイポグラフィを重視したシンプルなデザインです。<br>
+          派手な装飾を避けることで、コンテンツに自然と目が集中するように設計しています。<br>
+          ユーザーの操作を妨げず、直感的に理解できるレイアウトを意識しました。
         </p>
       </div>
     </div>
@@ -30,8 +31,8 @@
     <div class="card shadow-sm border-0">
       <div class="card-body">
         <ul class="list-unstyled mb-0">
-          <li><strong>日本語フォント:</strong> ゴシック体 / Noto Sans JP</li>
-          <li><strong>英語フォント:</strong> サンセリフ体 / Roboto</li>
+          <li><strong>日本語フォント:</strong> M PLUS Rounded 1c / 読みやすさと親しみやすさを両立</li>
+          <li><strong>英語フォント:</strong> Roboto / モダンでシンプルな印象を演出</li>
         </ul>
       </div>
     </div>
@@ -45,9 +46,11 @@
     <div class="card shadow-sm border-0">
       <div class="card-body">
         <ul>
-          <li><strong>背景色:</strong> #FBFBFB（ライトグレー）</li>
-          <li><strong>文字色:</strong> <span style="color:#444444;">#444444</span>（ダークグレー）</li>
-          <li><strong>アクセントカラー:</strong> #AFAFAF（グレージュ）</li>
+          <li><strong>テーマ:</strong>ページ全体は青系の背景パターンで、文字色は白に設定されています。活動的な印象を与えつつも清涼感のある印象で、<br>
+            文字が背景に映えるデザインを目指しました。</li>
+          
+          <li><strong>アクセントカラー:</strong> #68D391（蛍光グリーン） / CTAボタンやリンクの強調用</li>
+          <li><strong>補助カラー:</strong> #2BB1FF（エナジーブルー） / ユーザーの目線誘導やポイント表示に使用</li>
         </ul>
       </div>
     </div>
@@ -76,18 +79,16 @@
 </style>
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const elements = document.querySelectorAll(".fade-in");
-    
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      }, { threshold: 0.2 });
-    
-      elements.forEach(el => observer.observe(el));
+document.addEventListener("DOMContentLoaded", () => {
+  const elements = document.querySelectorAll(".fade-in");
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
     });
+  }, { threshold: 0.2 });
+  elements.forEach(el => observer.observe(el));
+});
 </script>
 {% endblock %}

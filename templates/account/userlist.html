@@ -11,35 +11,32 @@
   <!-- おすすめユーザーセクション -->
   <!-- ========================= -->
   <div>
-    <h4 class="h6 fw-bold mb-3 text-dark">おすすめユーザー</h4>
+    <h4 class="h6 fw-bold mb-3">おすすめユーザー</h4>
     <div class="row flex-nowrap overflow-auto pb-2">
       {% for user in recommended_users %}
-        <div class="col-auto text-center flex-shrink-0" style="width: 90px;">
-          <a href="{% url 'users:user_profile_detail' user.id %}" class="text-decoration-none d-block">
-            {% if user.avatar %}
-              <img src="{{ user.avatar.url }}" alt="アバター"
-                   class="rounded-circle mb-1"
-                   style="width: 48px; height: 48px; object-fit: cover;">
-            {% else %}
-              <img src="{% static 'images/default_avatar.png' %}" alt="デフォルトアバター"
-                   class="rounded-circle mb-1"
-                   style="width: 48px; height: 48px; object-fit: cover;">
-            {% endif %}
-            <div class="text-dark small text-truncate" style="max-width: 80px;">{{ user.username }}</div>
-          </a>
-          <div class="mt-1 small text-muted">
-            {% if user.prefetched_user_tags %}
-              {% for ut in user.prefetched_user_tags|slice:":1" %}
-                <span class="badge bg-light text-dark">#{{ ut.tag.name }}</span>
-              {% endfor %}
-            {% endif %}
-          </div>
-        </div>
-      {% empty %}
-        <div class="col-12 text-center text-muted">
-          <p class="mb-0">おすすめユーザーはいません</p>
-        </div>
-      {% endfor %}
+  <div class="col-auto text-center flex-shrink-0" style="width: 90px;">
+    <a href="{% url 'users:user_profile_detail' user.id %}" class="text-decoration-none d-block">
+      <div class="text-center mb-1">
+        {% if user.avatar %}
+          <img src="{{ user.avatar.url }}" alt="avatar"
+               style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover;">
+        {% else %}
+          <img src="{% static 'images/default_avatar.svg' %}" alt="avatar"
+               style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover;">
+        {% endif %}
+      </div>
+      <div class="text-dark small text-truncate" style="max-width: 80px;">{{ user.username }}</div>
+    </a>
+    <div class="mt-1 small text-muted">
+      {% if user.prefetched_user_tags %}
+        {% for ut in user.prefetched_user_tags|slice:":1" %}
+          <span>#{{ ut.tag.name }}</span>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+{% endfor %}
+
     </div>
   </div>
 
@@ -48,62 +45,61 @@
   <!-- 全ユーザーリストセクション -->
   <!-- ========================= -->
   <div>
-    <h2 class="h3 fw-bold mb-4 text-dark">ユーザーリスト</h2>
+    <h2 class="h3 fw-bold mb-4">ユーザーリスト</h2>
     <div id="user-list-grid" class="row">
       {% if users %}
-        {% for user in users %}
-          <div class="col-6 col-sm-4 col-md-3 col-lg-2 text-center flex-shrink-0">
-            <div class="card h-100 shadow-sm">
-              <div class="card-body">
-                <a href="{% url 'users:user_profile_detail' user.id %}">
-                  {% if user.avatar %}
-                    <img src="{{ user.avatar.url }}" alt="アバター画像"
-                         class="rounded-circle mb-2"
-                         style="width: 64px; height: 64px; object-fit: cover;">
-                  {% else %}
-                    <img src="{% static 'images/default_avatar.png' %}"
-                         alt="デフォルトアバター"
-                         class="rounded-circle mb-2"
-                         style="width: 64px; height: 64px; object-fit: cover;">
-                  {% endif %}
-                </a>
-                <div class="fw-semibold text-dark mb-1">{{ user.username }}</div>
-                <div class="text-muted small mb-2">
-                  フォロワー: <span class="followers-count" data-user-id="{{ user.id }}">{{ user.followers_count }}</span> /
-                  フォロー: {{ user.following_count }}
-                </div>
-
-                <div class="mb-2">
-                  {% if user.prefetched_user_tags %}
-                    {% for ut in user.prefetched_user_tags|slice:":3" %}
-                      <span class="badge bg-primary">#{{ ut.tag.name }}</span>
-                    {% endfor %}
-                  {% else %}
-                    <span class="text-muted">タグなし</span>
-                  {% endif %}
-                </div>
-
-                {% if user.id != request.user.id %}
-                  <div class="d-grid gap-2">
-                    <button type="button"
-                            class="btn follow-btn {% if user.is_following %}btn-secondary{% else %}btn-primary{% endif %}"
-                            data-user-id="{{ user.id }}"
-                            data-is-following="{% if user.is_following %}true{% else %}false{% endif %}">
-                      {% if user.is_following %}フォロー中{% else %}フォロー{% endif %}
-                    </button>
-                    <!-- ブロック機能 -->
-                    {% if user.is_blocked %}
-                      <button class="btn btn-warning unblock-btn" data-user-id="{{ user.id }}">ブロック解除</button>
-                    {% else %}
-                      <button class="btn btn-danger block-btn" data-user-id="{{ user.id }}">ブロック</button>
-                    {% endif %}
-                  </div>
-                  <a href="{% url 'messengers:conversation' user.id %}" class="btn btn-outline-primary mt-2">メッセージを送る</a>
+      {% for user in users %}
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2 text-center flex-shrink-0">
+        <div class="card h-100 shadow-sm">
+          <div class="card-body">
+            <a href="{% url 'users:user_profile_detail' user.id %}">
+              <div class="text-center mb-2">
+                {% if user.avatar %}
+                  <img src="{{ user.avatar.url }}" alt="avatar"
+                       style="width: 64px; height: 64px; border-radius: 50%; object-fit: cover;">
+                {% else %}
+                  <img src="{% static 'images/default_avatar.svg' %}" alt="avatar"
+                       style="width: 64px; height: 64px; border-radius: 50%; object-fit: cover;">
                 {% endif %}
               </div>
+            </a>
+            <div class="fw-semibold mb-1">{{ user.username }}</div>
+            <div class="text-muted small mb-2">
+              フォロワー: <span class="followers-count" data-user-id="{{ user.id }}">{{ user.followers_count }}</span> /
+              フォロー: {{ user.following_count }}
             </div>
+    
+            <div class="mb-2">
+              {% if user.prefetched_user_tags %}
+                {% for ut in user.prefetched_user_tags|slice:":3" %}
+                  <span class="badge bg-primary">#{{ ut.tag.name }}</span>
+                {% endfor %}
+              {% else %}
+                <span class="text-muted">タグなし</span>
+              {% endif %}
+            </div>
+    
+            {% if user.id != request.user.id %}
+              <div class="d-grid gap-2">
+                <button type="button"
+                        class="btn follow-btn {% if user.is_following %}btn-secondary{% else %}btn-primary{% endif %}"
+                        data-user-id="{{ user.id }}"
+                        data-is-following="{% if user.is_following %}true{% else %}false{% endif %}">
+                  {% if user.is_following %}フォロー中{% else %}フォロー{% endif %}
+                </button>
+                {% if user.is_blocked %}
+                  <button class="btn btn-warning unblock-btn" data-user-id="{{ user.id }}">ブロック解除</button>
+                {% else %}
+                  <button class="btn btn-danger block-btn" data-user-id="{{ user.id }}">ブロック</button>
+                {% endif %}
+              </div>
+              <a href="{% url 'messengers:conversation' user.id %}" class="btn btn-outline-primary mt-2">メッセージを送る</a>
+            {% endif %}
           </div>
-        {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+    
       {% else %}
         <div class="col-12 text-center py-5 text-muted">
           <p>該当するユーザーが見つかりませんでした。</p>

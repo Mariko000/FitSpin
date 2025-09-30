@@ -21,6 +21,8 @@ from django.urls import path, include
 from core import views as core_views # coreアプリのビューをインポート
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
+from django.urls import path, include, re_path
 
 urlpatterns = [
     path('about/', views.about_page, name='about_page'),
@@ -37,13 +39,28 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('comments/', include('comments.urls')),
     path('contact/', include('contact.urls')),
-    path('search/', core_views.search, name='search'),
+    path('search/', include('search.urls')),
     path("messengers/", include("messengers.urls")), 
+
+    
     # フォロー関連のAPIエンドポイントを管理
     path('api/followers/', include('followers.urls')),
 
-    #「いいね」機能はblogアプリのビューとモデルに統合されているため、config/urls.pyにlikesアプリ用のURLを追加する必要はありません
-    # 他のアプリのURLは後で追加します
+    # APIエンドポイントを先に定義
+    path('exercise/api/', include('exercise.urls')),
+    path('exercise/api/logs/', include('exercise_logs.urls')),
+
+    # timerアプリのAPIエンドポイント
+    path('timer/api/', include('timer.urls')),
+    
+   # VueアプリのメインHTMLを返す - 開発中は不要
+   #{% url 'vue_index' %}のタグを使うためnameを定義
+    # re_path(r'^exercise/', TemplateView.as_view(template_name='vue_index.html'), name='vue_index'),
+    # re_path(r'^exercise/(?P<path>.*)/$', TemplateView.as_view(template_name='vue_index.html'), name='vue_sub_paths'),
+
+    #「いいね」機能はblogアプリのビューとモデルに統合されているため、
+    # config/urls.pyにlikesアプリ用のURLを追加する必要はなし
+
 ]
 
 # メディアファイルを開発環境で配信する設定

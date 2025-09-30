@@ -17,13 +17,12 @@ class Tag(models.Model):
         return self.name
 
 
-# Create your models here.
 class User(AbstractUser):
     """
     ユーザー認証とプロフィールを拡張するカスタムユーザーモデル
     """
 
-    email = models.EmailField(unique=True)  # メールをユニークにする
+    email = models.EmailField(unique=True)
 
     avatar = models.ImageField(
         verbose_name='プロフィール画像',
@@ -32,23 +31,17 @@ class User(AbstractUser):
         blank=True,
     )
     
-    # ImageSpecField を追加して、画像を自動的にリサイズ
-    # ここで指定した `avatar_thumbnail` という属性で、リサイズされた画像にアクセス
     avatar_thumbnail = ImageSpecField(
         source='avatar',
-        processors=[ResizeToFill(50, 50)], # 50x50ピクセルにリサイズ
-        format='JPEG', # ファイル形式
-        options={'quality': 60} # 画像の品質
+        processors=[ResizeToFill(50, 50)],
+        format='JPEG',
+        options={'quality': 80}
     )
 
-    bio = models.TextField(
-        verbose_name='自己紹介',
-        max_length=500,
-        blank=True,
-    )
+    bio = models.TextField(max_length=500, blank=True)
 
-    # 最終ログイン時間を保存するフィールド
     last_login_time = models.DateTimeField(null=True, blank=True)
+    login_streak = models.IntegerField(default=0)
 
     following = models.ManyToManyField(
         'self',
@@ -56,6 +49,27 @@ class User(AbstractUser):
         related_name='followers',
         blank=True
     )
+
+    # 運動レベルとポイント
+    status_level = models.PositiveIntegerField(default=1, verbose_name='運動レベル', help_text='1〜5の運動レベル')
+    points = models.IntegerField(default=0)
+
+    def add_points(self, amount: int):
+        """
+        ポイントを加算し、必要に応じて1レベルずつ上げる
+        """
+        self.points += amount
+        # 1レベルずつ上がる
+        if self.points >= self._points_needed_for_next_level() and self.status_level < 5:
+            self.status_level += 1
+        self.save(update_fields=['points', 'status_level'])
+
+    def _points_needed_for_next_level(self) -> int:
+        """
+        次のレベルに必要なポイント
+        """
+        points_table = {1: 50, 2: 100, 3: 200, 4: 400}  # レベル5は最大
+        return points_table.get(self.status_level, 9999)
 
     class Meta:
         db_table = 'users'
@@ -68,6 +82,7 @@ class User(AbstractUser):
     def get_absolute_url(self):
         return reverse('users:user_profile_detail', args=[self.pk])
 
+
 class LoginHistory(models.Model):
     """
     ユーザーのログイン履歴を記録するモデル
@@ -79,7 +94,6 @@ class LoginHistory(models.Model):
         verbose_name = 'ログイン履歴'
         verbose_name_plural = 'ログイン履歴'
         ordering = ['-login_date']
-        # 一日一回のログイン記録を保証
         unique_together = ('user', 'login_date')
 
     def __str__(self):

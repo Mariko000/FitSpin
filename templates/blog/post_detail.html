@@ -22,6 +22,26 @@
             <p>{{ post.content|linebreaksbr }}</p>
         </div>
 
+        <!-- 最新運動ログ1件表示 -->
+        {% if user.is_authenticated and exercise_logs %}
+        <div class="mb-4 mt-5">
+            <h3>あなたの最新運動ログ</h3>
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>{{ exercise_logs.0.date }} {{ exercise_logs.0.time }}</strong>：
+                        {{ exercise_logs.0.exercise.name }}
+                    </div>
+                    <div>
+                        {% if exercise_logs.0.comments.count %}
+                            <span class="badge bg-primary rounded-pill">{{ exercise_logs.0.comments.count }} コメント</span>
+                        {% endif %}
+                    </div>
+                </li>
+            </ul>
+        </div>
+        {% endif %}
+
          <!-- タグ -->
          {% if post.tags.all %}
          <p>
@@ -35,26 +55,24 @@
          <p>タグ: タグなし</p>
      {% endif %}
 
+     <p>DEBUG: post.pk = {{ post.pk }}</p>
         <!-- いいね機能の表示とボタン -->
         <div class="d-flex align-items-center mb-3">
-            <form action="{% url 'blog:post_like' pk=post.pk %}" method="post" class="d-inline">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-link text-decoration-none p-0 me-2 post-like-btn" style="color: inherit;">
-                    {% if user in post.in_likes %}
-                        <i class="fa-solid fa-thumbs-up text-primary"></i>
-                    {% else %}
-                        <i class="fa-regular fa-thumbs-up"></i>
-                    {% endif %}
-                </button>
-            </form>
-            <span>{{ post.likes.count }}</span>
+            <button class="btn btn-link text-decoration-none p-0 me-2 post-like-btn" data-post-id="{{ post.pk }}">
+                {% if is_liked %}
+                    <i class="fa-solid fa-thumbs-up text-primary"></i>
+                {% else %}
+                    <i class="fa-regular fa-thumbs-up"></i>
+                {% endif %}
+            </button>
+            <span class="likes-count">{{ post.likes.count }}</span>
         </div>
+        
 
         <!-- 投稿者のみ編集・削除ボタンを表示 -->
         {% if user.is_authenticated and user == post.author %}
         <div class="mt-4">
             <a href="{% url 'blog:post_edit' pk=post.pk %}" class="btn btn-primary me-2">編集</a>
-            <a href="{% url 'blog:post_delete' pk=post.pk %}" class="btn btn-danger">削除</a>
         </div>
         {% endif %}
 
@@ -98,9 +116,80 @@
             </div>
         </div>
     </section>
-        <!-- 投稿リストに戻るボタン -->
-        <div class="text-center my-4">
-            <a href="{% url 'blog:post_list' %}" class="btn btn-outline-secondary">投稿リストに戻る</a>
-        </div>
+
+    <!-- 投稿リストに戻るボタン -->
+    <div class="text-center my-4">
+        <a href="{% url 'blog:post_list' %}" class="btn btn-outline-secondary">投稿リストに戻る</a>
+    </div>
 </div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+      const csrftoken = getCookie('csrftoken');
+    
+      document.querySelectorAll(".post-like-btn").forEach(btn => {
+        btn.addEventListener("click", async (e) => {
+          e.preventDefault();
+          const postId = btn.dataset.postId;
+    
+          try {
+            const res = await fetch(`/blog/post/${postId}/like/`, {
+              method: "POST",
+              headers: {
+                "X-CSRFToken": csrftoken,
+                "X-Requested-With": "XMLHttpRequest",
+              },
+            });
+    
+            let data;
+            const contentType = res.headers.get("content-type") || "";
+            if (contentType.includes("application/json")) {
+              data = await res.json();
+            } else {
+              // JSON でない場合も安全に処理
+              console.warn("JSON 以外のレスポンス:", await res.text());
+              return;
+            }
+    
+            if (!data.error) {
+              const icon = btn.querySelector("i");
+              const countSpan = btn.nextElementSibling;
+    
+              if (data.is_liked) {
+                icon.classList.remove("fa-regular");
+                icon.classList.add("fa-solid", "text-primary");
+              } else {
+                icon.classList.remove("fa-solid", "text-primary");
+                icon.classList.add("fa-regular");
+              }
+    
+              if (countSpan) countSpan.textContent = data.likes_count;
+            } else {
+              console.error("いいねエラー:", data.error);
+            }
+          } catch (err) {
+            console.error("Fetch でエラー:", err);
+          }
+        });
+      });
+    });
+    </script>
+    
+    
+    
 {% endblock %}

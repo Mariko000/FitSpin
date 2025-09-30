@@ -1,23 +1,27 @@
+// src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router'
-import MainContent from '../components/MainContent.vue' // メインコンテンツコンポーネントをインポート
-import About from '../components/About.vue' // Aboutページコンポーネントをインポート
+import MainContent from '../components/MainContent.vue'
+import ExerciseDone from '../components/ExerciseDone.vue'
+import CalendarView from '../components/History/CalendarView.vue'
+import ExerciseLogList from '../components/History/ExerciseLogList.vue'
 
 const routes = [
+  { path: '/', component: MainContent },
+  { path: '/exercise-done', component: ExerciseDone },
+  { path: '/calendar', component: CalendarView },
   {
-    path: '/',
-    name: 'Home',
-    component: MainContent
+    path: '/exercise-logs/month/:yearMonth',
+    name: 'exercise_logs_by_month',
+    component: ExerciseLogList
   },
-  {
-    path: '/about',
-    name: 'About',
-    component: About
-  }
+  
+  
+  //キャッチオールは最後に置く
+  { path: '/:pathMatch(.*)*', redirect: '/' },
 ]
 
-const router = createRouter({
-  history: createWebHistory(),
+export default createRouter({
+  // ベースURLを明示的に設定
+  history: createWebHistory('/'),
   routes
 })
-
-export default router

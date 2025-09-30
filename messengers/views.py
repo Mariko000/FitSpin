@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.db.models import Count, Q
 
-from followers.models import Follow    # ← 正しいインポート
+from followers.models import Follow
 from .models import Message
 
 User = get_user_model()

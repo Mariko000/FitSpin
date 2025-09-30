@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'imagekit',
+    'webpush',
 
     # 作成したアプリ
     'users.apps.UsersConfig',
@@ -53,6 +54,10 @@ INSTALLED_APPS = [
     'tags',
     'messengers',
     'profanity_filter',
+    'exercise',#→エクササイズアプリメイン
+    'exercise_logs', #→エクササイズ記録用
+    'vue_integration', #→vueアプリ用のバックエンド
+    'timer',
 
 
     # DRFを追加
@@ -147,7 +152,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-LOGIN_URL = '/account/login/'
+LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/' 
 
 # Internationalization
@@ -177,6 +182,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
     BASE_DIR / "apps" / "static",
+    #BASE_DIR / "vue-contents" / "dist",
 ]
 # 本番環境で静的ファイルが収集される場所
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -241,20 +247,59 @@ ACCOUNT_LOGOUT_REDIRECT_URL = 'account_login' # Default: '/'
 
 #ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
 
-# 特定のオリジンからのアクセスを許可する場合
+# Cookie（認証情報）の送信を許可する
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5174",
-    "http://127.0.0.1:5174",
+    # "http://localhost:5173",
+    "http://127.0.0.1:5173",  # 安全のためにこれも追加
+]
+CSRF_TRUSTED_ORIGINS = [
+    #"http://localhost:5173",
+    "http://127.0.0.1:5173",
 ]
 
+# ローカル開発用
+SESSION_COOKIE_SAMESITE = "Lax"  # None→Lax
+CSRF_COOKIE_SAMESITE = "Lax"
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False      # https を使う場合は True
+
+# 本番環境（HTTPS）にする場合のみ
+# SESSION_COOKIE_SAMESITE = "Lax"  # None→Lax
+# CSRF_COOKIE_SAMESITE = "Lax"
+# SESSION_COOKIE_SECURE = False
+# CSRF_COOKIE_SECURE = False      # https を使う場合は True
+
 # セッションおよびCSRFクッキー設定
-SESSION_COOKIE_SAMESITE = 'Lax'
-CSRF_COOKIE_SAMESITE = 'Lax'
+#SESSION_COOKIE_SAMESITE = 'Lax'
+#CSRF_COOKIE_SAMESITE = 'Lax'
 
 # セッションクッキーの設定を追加
 SESSION_COOKIE_DOMAIN = None
 SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+
+#通知
+WEBPUSH_VAPID_PRIVATE_KEY = """-----BEGIN PRIVATE KEY-----
+MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgEUOlG3tQ4VsJqqIL
+Wu3SKQ8G7q5vnpJE4fkzN/TE/eChRANCAARg2CdXAOPyN1G7pBKrfEhzJ1k0l6hN
+OgehwJO/F2TIfyN1vM4lrzN46atVVb6JxnEr4zZlbJFbxYcsTnjaJap4
+-----END PRIVATE KEY-----"""
+
+WEBPUSH_VAPID_PUBLIC_KEY = """-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEYNgnVwDj8jdRu6QSq3xIcydZNJeo
+TToHocCTvxdkyH8jdbzOJa8zeOmrVVW+icZxK+M2ZWyRW8WHLE542iWqeA==
+-----END PUBLIC KEY-----"""
+
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+
+CELERY_BEAT_SCHEDULE = {
+    'check-timers-every-minute': {
+        'task': 'timer.tasks.check_and_send_notifications',
+        'schedule': 60.0,  # 60秒おき
+    },
+}
 
  #if os.environ.get('ENVIRONMENT') != 'production':
      #from .local_settings import *

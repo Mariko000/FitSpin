@@ -1,36 +1,145 @@
 <template>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="http://127.0.0.1:8000/">Django Portfolio</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">メインコンテンツ</a>
-            </li>
-            <!-- 必要に応じて他のVue.jsコンテンツへのリンクを追加 -->
-          </ul>
-        </div>
+  <nav class="custom-navbar">
+    <div class="custom-container">
+      <!-- ロゴ -->
+      <a class="custom-brand" href="http://127.0.0.1:8000/">FitSpin</a>
+
+      <!-- ナビリンク -->
+      <ul class="custom-nav-list">
+        <li class="custom-nav-item">
+          <router-link class="custom-nav-link" to="/" active-class="active" >ガチャ</router-link>
+        </li>
+        <li class="custom-nav-item">
+          <router-link class="custom-nav-link" to="/calendar">履歴</router-link>
+        </li>
+      </ul>
+
+      <!-- 右端：ユーザー情報 -->
+      <div v-if="user" class="user-info">
+        あなた レベル: {{ user.status_level }} ポイント: {{ user.points }}
       </div>
-    </nav>
-  </template>
-  
-  <script>
-  export default {
-    name: 'Header'
+    </div>
+  </nav>
+</template>
+
+<script setup>
+import {ref, onMounted} from 'vue'
+const user = ref(null)
+
+onMounted(async () => {
+  try {
+    const res = await fetch('http://127.0.0.1:8000/api/users/current-user/', {
+      credentials: 'include'
+    })
+    if (!res.ok) throw new Error('APIエラー')
+    user.value = await res.json()
+  } catch (err) {
+    console.error('ユーザー情報取得に失敗:', err)
   }
-  </script>
-  
-  <style scoped>
-  /* Bootstrapのスタイルをそのまま利用 */
-  @import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css');
-  
-  /* Tailwind CSSのUtility Classを上書きするためにscopedを適用 */
-  .navbar-brand {
-      font-size: 1.5rem;
-      font-weight: bold;
+})
+</script>
+
+<style scoped>
+.custom-navbar {
+  background-color: #5A4DA0; /* 落ち着いたパープル系で #app 背景と統一 */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  position: relative;
+  z-index: 1000;
+}
+
+.custom-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap; /* スマホで改行対応 */
+  height: 70px;
+  padding: 0 20px;
+}
+
+/* ロゴ */
+.custom-brand {
+  font-family: 'Arial Rounded MT Bold','Helvetica Rounded',sans-serif;
+  font-weight: bold;
+  font-size: 1.6rem;
+  color: #fff;
+  text-decoration: none;
+  margin-right: 30px;
+}
+
+/* ナビリンク */
+.custom-nav-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 15px;
+}
+
+.custom-nav-link {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: none;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+.custom-nav-link:hover {
+  color: #FFD93D; /* ポップ色は控えめに */
+  text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+
+/* ユーザー情報右端 */
+.user-info {
+  margin-left: auto;
+  font-size: 0.9rem;
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* ================================
+  レスポンシブ対応
+=============================== */
+
+/* タブレット 768px以下 */
+@media (max-width: 768px) {
+  .custom-container {
+    height: auto;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
-  </style>
-  
+  .custom-brand {
+    font-size: 1.4rem;
+    margin-right: 0;
+  }
+  .custom-nav-list {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .user-info {
+    font-size: 0.85rem;
+  }
+}
+
+/* スマホ 480px以下 */
+@media (max-width: 480px) {
+  .custom-container {
+    padding: 0 12px;
+  }
+  .custom-brand {
+    font-size: 1.2rem;
+  }
+  .custom-nav-list {
+    flex-direction: column;
+    width: 100%;
+    gap: 6px;
+  }
+  .custom-nav-link {
+    font-size: 0.9rem;
+  }
+  .user-info {
+    font-size: 0.8rem;
+  }
+}
+
+</style>

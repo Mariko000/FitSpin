@@ -12,31 +12,36 @@
   <div class="messages">
     {% for message in chat_messages %}
       <div class="message-wrapper {% if message.sender == request.user %}sent{% else %}received{% endif %}">
-  
+
         {% if message.sender != request.user %}
-          <div class="avatar">
+          <div class="avatar text-center" style="width:48px; height:48px; border-radius:50%; overflow:hidden;">
             {% if message.sender.avatar %}
-              <img src="{{ message.sender.avatar.url }}" alt="アバター画像" class="chat-avatar">
+              <img src="{{ message.sender.avatar.url }}" alt="avatar"
+                   style="width:100%; height:100%; object-fit:cover;">
             {% else %}
-              <img src="{% static 'images/default_avatar.png' %}" alt="デフォルトアバター" class="chat-avatar">
+              <img src="{% static 'images/default_avatar.svg' %}" alt="avatar"
+                   style="width:100%; height:100%; object-fit:cover;">
             {% endif %}
           </div>
         {% endif %}
-  
+
         <div class="message-bubble {% if message.sender == request.user %}sent{% else %}received{% endif %}">
           <p>{{ message.content }}</p>
           <small class="message-time">{{ message.created_at|date:"Y年m月d日 H:i" }}</small>
         </div>
-  
+
         {% if message.sender == request.user %}
-          <div class="avatar">
+          <div class="avatar text-center" style="width:48px; height:48px; border-radius:50%; overflow:hidden;">
             {% if request.user.avatar %}
-              <img src="{{ request.user.avatar.url }}" alt="あなたのアバター" class="chat-avatar">
+              <img src="{{ request.user.avatar.url }}" alt="avatar"
+                   style="width:100%; height:100%; object-fit:cover;">
             {% else %}
-              <img src="{% static 'images/default_avatar.png' %}" alt="デフォルトアバター" class="chat-avatar">
+              <img src="{% static 'images/default_avatar.svg' %}" alt="avatar"
+                   style="width:100%; height:100%; object-fit:cover;">
             {% endif %}
           </div>
         {% endif %}
+
       </div>
     {% endfor %}
   </div>
@@ -49,11 +54,11 @@
 </div>
 
 <style>
-
 body{
   background-color: #fcfcfc;
 }
 main { padding-top: 20px; }
+
 /* chat-container */
 .chat-container {
   max-width: 800px;
@@ -73,19 +78,19 @@ main { padding-top: 20px; }
 .message-wrapper {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 20px;
+  margin-bottom: 16px; /* 吹き出し間隔 */
   gap: 10px; /* アバターと吹き出しの間の隙間 */
 }
 
 /* 送信したメッセージ */
 .message-wrapper.sent {
-  align-self: flex-end; /* 右寄せ */
-  flex-direction: row-reverse; /* アバターを右に配置 */
+  align-self: flex-end;
+  flex-direction: row-reverse;
 }
 
 /* 受信したメッセージ */
 .message-wrapper.received {
-  align-self: flex-start; /* 左寄せ */
+  align-self: flex-start;
 }
 
 /* アバター画像 */
@@ -104,43 +109,50 @@ main { padding-top: 20px; }
   border-radius: 20px;
   color: #000;
   word-wrap: break-word;
+  line-height: 1.4;
 }
 
-/* あなたの吹き出し */
-.message-bubble.sent {
-  background-color: #dcf8c6; /* 緑系の色 */
-  border-bottom-right-radius: 4px; /* 尖らせるための調整 */
-}
-/* あなたの吹き出しの尖った部分 */
+
+
+/* 送信（右）の吹き出しの三角部分 */
 .message-bubble.sent::after {
   content: "";
   position: absolute;
-  top: 0;
-  right: -8px; /* 吹き出しの右端に配置 */
-  width: 15px;
-  height: 15px;
-  background-color: #dcf8c6;
-  clip-path: polygon(100% 0, 0 0, 100% 100%); /* 三角形に切り抜く */
+  right: -6px;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-left: 6px solid #dcf8c6;
 }
 
-/* 相手の吹き出し */
+/* 送信（右）の吹き出し */
 .message-bubble.received {
   background-color: #f0f0f0;
-  border-bottom-left-radius: 4px; /* 尖らせるための調整 */
+  border-bottom-left-radius: 0;
 }
-/* 相手の吹き出しの尖った部分 */
+
+/* 受信（左）の吹き出し*/
+.message-bubble.sent {
+  background-color: #dcf8c6;
+  border-bottom-right-radius: 0;/* 三角形が出る角 */
+  position: relative; 
+}
+
+/* 受信（左）の吹き出しの三角部分  */
 .message-bubble.received::after {
   content: "";
   position: absolute;
-  top: 0;
-  left: -8px; /* 吹き出しの左端に配置 */
-  width: 15px;
-  height: 15px;
-  background-color: #f0f0f0;
-  clip-path: polygon(0 0, 100% 0, 0 100%); /* 三角形に切り抜く */
+  left: -6px;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-left: 6px solid #f0f0f0;
+  transform: scaleX(-1); 
 }
 
-/* メッセージ内のテキスト */
+/* メッセージ内テキスト */
 .message-bubble p {
   margin: 0;
 }
@@ -154,7 +166,7 @@ main { padding-top: 20px; }
   text-align: right;
 }
 
-/* その他の要素のスタイル（フォームなど） */
+/* フォーム */
 form {
   margin-top: 15px;
   margin-bottom: 15px;
@@ -166,31 +178,31 @@ textarea {
   resize: none;
   border: 1px solid #ccc;
   border-radius: 20px;
-  padding: 8px; /* パディングを小さくする */
-  font-size: 0.9rem; /* フォントサイズを小さくする */
+  padding: 8px;
+  font-size: 0.9rem;
 }
 button {
   background-color: #a1a1a1;
   color: white;
   border: none;
-  padding: 8px 16px; /* パディングを小さくする */
+  padding: 8px 16px;
   border-radius: 20px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  font-size: 0.9rem; /* フォントサイズを小さくする */
+  font-size: 0.9rem;
 }
 button:hover {
   background-color: #888888;
 }
 </style>
 
-{% endblock %}
-
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const messagesDiv = document.querySelector(".messages");
-    if (messagesDiv) {
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    }
-  });
+document.addEventListener("DOMContentLoaded", function() {
+  const messagesDiv = document.querySelector(".messages");
+  if (messagesDiv) {
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  }
+});
 </script>
+
+{% endblock %}

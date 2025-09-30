@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import unlock_next_view, level_up_api   
 
 app_name = "users"
 
@@ -18,4 +19,7 @@ urlpatterns = [
 
     # ユーザー一覧
     path("list/", views.user_list_page, name="user_list_page"),
+
+    path('unlock-next/', unlock_next_view, name='unlock-next'), # ←レベルアップ用
+    path('api/level-up/', level_up_api, name='level-up')
 ]

@@ -1,46 +1,78 @@
+# search/views.py
 from django.shortcuts import render
-# views.py（例）
 from django.db.models import Q
 from blog.models import Post
-from django.contrib.auth import get_user_model
 from tags.models import Tag, UserTag
+from users.models import User
+from exercise_logs.models import ExerciseLog
 
-User = get_user_model()
-
-@login_required
 def search_view(request):
-    query = request.GET.get("q", "")
+    query = request.GET.get("q", "").strip()
+    print(">>> search_view called")
+    print("DEBUG query=", repr(query))
+
     results = {
+        "tags": [],
         "blog_posts": [],
         "users": [],
-        "tags": [],
-        "users_with_tag": []
+        "exercise_logs": [],
     }
 
     if query:
-        # ブログ投稿
-        results["blog_posts"] = Post.objects.filter(
-            Q(title__icontains=query) | Q(body__icontains=query)
-        ).select_related("author").prefetch_related("tags")
+        # --------------------------
+        # タグ検索（補助的に表示するだけ）
+        # --------------------------
+        tags = Tag.objects.filter(name__icontains=query)
+        results["tags"] = tags
+        print("DEBUG tags=", tags)
 
-        # ユーザー
-        results["users"] = User.objects.filter(
-            Q(username__icontains=query) | Q(bio__icontains=query)
+        # --------------------------
+        # ブログ記事検索（タイトル OR content OR body）
+        # --------------------------
+        blog_qs = Post.objects.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query) |
+            Q(body__icontains=query)
         )
 
-        # タグ
-        results["tags"] = Tag.objects.filter(name__icontains=query)
+        # タグに紐づく記事も追加
+        if tags.exists():
+            blog_qs = blog_qs | Post.objects.filter(tags__in=tags)
 
-        # そのタグを持つユーザー
-        results["users_with_tag"] = User.objects.filter(
-            tags__tag__name__icontains=query
-        ).distinct()
+        results["blog_posts"] = blog_qs.distinct().select_related("author").prefetch_related("tags")
+        print("DEBUG blog_posts=", results["blog_posts"])
+
+        # --------------------------
+        # ユーザー検索（username OR bio）
+        # --------------------------
+        user_qs = User.objects.filter(
+            Q(username__icontains=query) |
+            Q(bio__icontains=query)
+        )
+
+        # タグに紐づくユーザーも追加
+        if tags.exists():
+            user_qs = user_qs | User.objects.filter(tags__tag__in=tags)
+
+        results["users"] = user_qs.distinct()
+        print("DEBUG users=", results["users"])
+
+        # --------------------------
+        # 運動ログ検索（運動名）
+        # --------------------------
+        exercise_qs = ExerciseLog.objects.filter(
+            exercise__name__icontains=query
+        )
+
+        # タグに紐づく運動ログも追加
+        if tags.exists():
+            exercise_qs = exercise_qs | ExerciseLog.objects.filter(tags__in=tags)
+
+        results["exercise_logs"] = exercise_qs.distinct()
+        print("DEBUG exercise_logs=", results["exercise_logs"])
 
     return render(
         request,
-        "search_results.html",
+        "core/search_results.html",  # ここは既存のテンプレートパスに合わせる
         {"query": query, "results": results}
     )
-
-
-# Create your views here.
