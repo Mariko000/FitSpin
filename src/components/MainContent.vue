@@ -11,9 +11,9 @@ import sunnyImg from '@/assets/css/TENKI/sunny.PNG'
 import cloudyImg from '@/assets/css/TENKI/cloudy.PNG'
 import raindropImg from '@/assets/css/TENKI/raindrop.PNG'
 
-import circleSmall from '../assets/images/badges/cell-circle_small.png'
-import circleMedium from '../assets/images/badges/cell-circle_medium.png'
-import circleLarge from '../assets/images/badges/cell-circle_large.png'
+import circleSmall from '@/assets/images/badges/cell-circle_small.png'
+import circleMedium from '@/assets/images/badges/cell-circle_medium.png'
+import circleLarge from '@/assets/images/badges/cell-circle_large.png'
 import spinSePath from '../assets/sounds/spin.mp3'
 import winSePath from '../assets/sounds/win.mp3'
 
