@@ -1,0 +1,157 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36" version="28.2.7">
+  <diagram id="b0iPRY4P7Wgdvb9VEVvR" name="FitSpin APIフロー図">
+    <mxGraphModel dx="202" dy="524" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="lmCQUXxNphZwn3KPyKGP-4" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fff2cc;strokeColor=none;align=left;" parent="1" vertex="1">
+          <mxGeometry x="740" y="200" width="400" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="unx62ZiJJAwG5zZq8Wnt-1" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#b0e3e6;strokeColor=#0e8088;" parent="1" vertex="1">
+          <mxGeometry x="550" y="40" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="unx62ZiJJAwG5zZq8Wnt-2" value="ユーザー操作&amp;nbsp;&amp;nbsp;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=13;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="555" y="60" width="110" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="unx62ZiJJAwG5zZq8Wnt-3" value="クリック/入力" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=13;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="565" y="90" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="AMAmnb8Dx2cpOXZK40n_-1" value="" style="whiteSpace=wrap;html=1;aspect=fixed;fillColor=#fff2cc;strokeColor=none;align=left;" parent="1" vertex="1">
+          <mxGeometry x="480" y="200" width="400" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="IcYPmA_ExTxSHqfeYnnN-1" value="フロントエンド" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;" parent="1" vertex="1">
+          <mxGeometry x="550" y="220" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="_X1WfyYQr44s5wYkFkL_-1" value="&lt;font color=&quot;#ffffff&quot;&gt;&lt;span style=&quot;font-size: 24px; text-wrap-mode: nowrap;&quot;&gt;&lt;b&gt;HTMLテンプレート&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#ffcd28;gradientColor=#ffa500;strokeColor=#d79b00;" parent="1" vertex="1">
+          <mxGeometry x="500" y="280" width="280" height="150" as="geometry">
+            <mxRectangle x="500" y="280" width="250" height="40" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="_X1WfyYQr44s5wYkFkL_-2" value="&amp;nbsp;GET / (home)&amp;nbsp;&amp;nbsp;" style="text;strokeColor=#d6b656;fillColor=#fff2cc;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;gradientColor=#ffd966;" parent="_X1WfyYQr44s5wYkFkL_-1" vertex="1">
+          <mxGeometry y="30" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_X1WfyYQr44s5wYkFkL_-3" value="GET /about/ (about_page)&amp;nbsp; &amp;nbsp;" style="text;strokeColor=#d6b656;fillColor=#fff2cc;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;gradientColor=#ffd966;" parent="_X1WfyYQr44s5wYkFkL_-1" vertex="1">
+          <mxGeometry y="60" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_X1WfyYQr44s5wYkFkL_-4" value="GET /explained_design/ (explained_design)&amp;nbsp;&amp;nbsp;" style="text;strokeColor=#d6b656;fillColor=#fff2cc;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;gradientColor=#ffd966;" parent="_X1WfyYQr44s5wYkFkL_-1" vertex="1">
+          <mxGeometry y="90" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="_X1WfyYQr44s5wYkFkL_-5" value="GET /accounts/login/ (allauth login)&amp;nbsp;&amp;nbsp;" style="text;strokeColor=#d6b656;fillColor=#fff2cc;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;gradientColor=#ffd966;" parent="_X1WfyYQr44s5wYkFkL_-1" vertex="1">
+          <mxGeometry y="120" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lmCQUXxNphZwn3KPyKGP-1" value="&lt;font&gt;&lt;span style=&quot;font-size: 24px; font-weight: 700; text-wrap-mode: nowrap; color: rgb(255, 255, 255);&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-weight: 700; text-wrap-mode: nowrap; color: rgb(255, 255, 255);&quot;&gt;&lt;font style=&quot;font-size: 22px;&quot;&gt;Vue.js SPA&lt;/font&gt;&lt;/span&gt;&lt;/font&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;gradientColor=#97d077;strokeColor=#82b366;" parent="1" vertex="1">
+          <mxGeometry x="840" y="280" width="280" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="lmCQUXxNphZwn3KPyKGP-6" value="|&amp;nbsp; GET /accounts/signup/ (allauth signup)&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;nbsp;" style="text;strokeColor=#d6b656;fillColor=#fff2cc;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;gradientColor=#ffd966;" parent="1" vertex="1">
+          <mxGeometry x="500" y="430" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lmCQUXxNphZwn3KPyKGP-7" value="&amp;nbsp;GET /users/profile/&amp;lt;id&amp;gt;/ (プロフィール表示)&amp;nbsp;" style="text;strokeColor=#d6b656;fillColor=#fff2cc;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;gradientColor=#ffd966;" parent="1" vertex="1">
+          <mxGeometry x="500" y="460" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lmCQUXxNphZwn3KPyKGP-8" value="GET /blog/posts/new/ (投稿フォーム)&amp;nbsp;&amp;nbsp;" style="text;strokeColor=#d6b656;fillColor=#fff2cc;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;gradientColor=#ffd966;" parent="1" vertex="1">
+          <mxGeometry x="500" y="490" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lmCQUXxNphZwn3KPyKGP-9" value="GET /blog/posts/new/ (投稿フォーム)&amp;nbsp;&amp;nbsp;" style="text;strokeColor=#d6b656;fillColor=#fff2cc;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;gradientColor=#ffd966;" parent="1" vertex="1">
+          <mxGeometry x="500" y="520" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lmCQUXxNphZwn3KPyKGP-10" value="GET /contact/ (お問い合わせ)&amp;nbsp;" style="text;strokeColor=#d6b656;fillColor=#fff2cc;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;gradientColor=#ffd966;" parent="1" vertex="1">
+          <mxGeometry x="500" y="550" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lmCQUXxNphZwn3KPyKGP-11" value="&lt;span style=&quot;text-align: left;&quot;&gt;&amp;nbsp;フォームPOST /AJAX&lt;/span&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#d0cee2;strokeColor=#56517e;gradientColor=#E6D0DE;swimlaneFillColor=default;gradientDirection=north;" parent="1" vertex="1">
+          <mxGeometry x="499" y="640" width="280" height="150" as="geometry">
+            <mxRectangle x="500" y="640" width="160" height="30" as="alternateBounds" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lmCQUXxNphZwn3KPyKGP-12" value="POST /users/profile/update/ 　→ Users API (更新)" style="text;strokeColor=#56517e;fillColor=#d0cee2;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;gradientColor=#F1DBE9;gradientDirection=north;" parent="lmCQUXxNphZwn3KPyKGP-11" vertex="1">
+          <mxGeometry y="30" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lmCQUXxNphZwn3KPyKGP-13" value="POST /blog/posts/new/&amp;nbsp; → Blog API (投稿作成)" style="text;strokeColor=#56517e;fillColor=#d0cee2;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;gradientColor=#F1DBE9;gradientDirection=north;" parent="lmCQUXxNphZwn3KPyKGP-11" vertex="1">
+          <mxGeometry y="60" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lmCQUXxNphZwn3KPyKGP-14" value="POST /comments/add/ 　&lt;br&gt;　　　　　　　→ Comments API (コメント追加)" style="text;strokeColor=#56517e;fillColor=#d0cee2;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;gradientColor=#F1DBE9;gradientDirection=north;" parent="lmCQUXxNphZwn3KPyKGP-11" vertex="1">
+          <mxGeometry y="90" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lmCQUXxNphZwn3KPyKGP-15" value="POST /followers/toggle/&lt;br&gt;　　　　　　　→ Followers API (フォロー/解除)" style="text;strokeColor=#56517e;fillColor=#d0cee2;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;gradientColor=#F1DBE9;gradientDirection=north;" parent="lmCQUXxNphZwn3KPyKGP-11" vertex="1">
+          <mxGeometry y="120" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lmCQUXxNphZwn3KPyKGP-16" value="GET&amp;nbsp; /tags/suggest/?q=&lt;br&gt;　　　　　　　　　　→ Tags API (タグ補完)" style="text;strokeColor=#56517e;fillColor=#d0cee2;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;gradientColor=#F1DBE9;gradientDirection=north;" parent="1" vertex="1">
+          <mxGeometry x="499" y="790" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lmCQUXxNphZwn3KPyKGP-17" value="GET&amp;nbsp; /search/autocomplete/?q=&lt;br&gt;　　　　　　　　　　→ Search App (検索補完)" style="text;strokeColor=#56517e;fillColor=#d0cee2;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;gradientColor=#F1DBE9;gradientDirection=north;" parent="1" vertex="1">
+          <mxGeometry x="499" y="820" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lmCQUXxNphZwn3KPyKGP-18" value="GET&amp;nbsp; /search/history/&amp;nbsp;&lt;br&gt;　　　　　　　　　　→ Search App (検索履歴)" style="text;strokeColor=#56517e;fillColor=#d0cee2;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;gradientColor=#F1DBE9;gradientDirection=north;" parent="1" vertex="1">
+          <mxGeometry x="499" y="850" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lmCQUXxNphZwn3KPyKGP-19" value="&lt;div&gt;GET&amp;nbsp; /messengers/inbox/ /messengers/send/&lt;br&gt;　　　　　　　　→ Messengers API (受信/送信)&lt;/div&gt;" style="text;strokeColor=#56517e;fillColor=#d0cee2;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;gradientColor=#F1DBE9;gradientDirection=north;" parent="1" vertex="1">
+          <mxGeometry x="499" y="880" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="RyltzsJ-rO4vHGCkNSkB-4" value="/exercise-logs/month/:yearMonth (ExerciseLogList)&amp;nbsp;&amp;nbsp;" style="text;strokeColor=#82b366;fillColor=#d5e8d4;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;gradientColor=#97d077;" parent="1" vertex="1">
+          <mxGeometry x="840" y="400" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="RyltzsJ-rO4vHGCkNSkB-5" value="&amp;nbsp;/ (MainContent)&amp;nbsp; &amp;nbsp; &amp;nbsp;" style="text;strokeColor=#82b366;fillColor=#d5e8d4;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;gradientColor=#97d077;" parent="1" vertex="1">
+          <mxGeometry x="840" y="310" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lmCQUXxNphZwn3KPyKGP-3" value="/calendar (CalendarView)&amp;nbsp;" style="text;strokeColor=#82b366;fillColor=#d5e8d4;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;gradientColor=#97d077;" parent="1" vertex="1">
+          <mxGeometry x="840" y="370" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lmCQUXxNphZwn3KPyKGP-2" value="/exercise-done (ExerciseDone)&amp;nbsp;" style="text;strokeColor=#82b366;fillColor=#d5e8d4;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;gradientColor=#97d077;" parent="1" vertex="1">
+          <mxGeometry x="840" y="340" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="RyltzsJ-rO4vHGCkNSkB-8" value="&lt;div style=&quot;text-align: left;&quot;&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;&amp;nbsp;fetch API&lt;/span&gt;&lt;/div&gt;" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;gradientColor=#A9C4EB;" parent="1" vertex="1">
+          <mxGeometry x="840" y="640" width="280" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="RyltzsJ-rO4vHGCkNSkB-9" value="GET&amp;nbsp; /exercise/api/gacha/ 　&lt;br&gt;　　　　　　　　　　　→ Exercise App (ガチャ)" style="text;strokeColor=#10739e;fillColor=#b1ddf0;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fillStyle=auto;gradientColor=#A9C4EB;" parent="RyltzsJ-rO4vHGCkNSkB-8" vertex="1">
+          <mxGeometry y="30" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="RyltzsJ-rO4vHGCkNSkB-10" value="GET&amp;nbsp; /exercise/api/logs/&amp;nbsp; &amp;nbsp;&lt;br&gt;　　　　　　→ ExerciseLogs App (運動記録取得)" style="text;strokeColor=#10739e;fillColor=#b1ddf0;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fillStyle=auto;gradientColor=#A9C4EB;" parent="RyltzsJ-rO4vHGCkNSkB-8" vertex="1">
+          <mxGeometry y="60" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="RyltzsJ-rO4vHGCkNSkB-11" value="POST /exercise/api/logs/add/&lt;br&gt;　　　　　　→ ExerciseLogs App (運動記録追加)" style="text;strokeColor=#10739e;fillColor=#b1ddf0;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fillStyle=auto;gradientColor=#A9C4EB;" parent="RyltzsJ-rO4vHGCkNSkB-8" vertex="1">
+          <mxGeometry y="90" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="RyltzsJ-rO4vHGCkNSkB-12" value="GET&amp;nbsp; /timer/api/status/　→ Timer App (状態確認)" style="text;strokeColor=#10739e;fillColor=#b1ddf0;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fillStyle=auto;gradientColor=#A9C4EB;" parent="RyltzsJ-rO4vHGCkNSkB-8" vertex="1">
+          <mxGeometry y="120" width="280" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="RyltzsJ-rO4vHGCkNSkB-17" value="" style="shape=singleArrow;direction=south;whiteSpace=wrap;html=1;fillColor=#010101;" parent="1" vertex="1">
+          <mxGeometry x="620" y="600" width="20" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="RyltzsJ-rO4vHGCkNSkB-20" value="" style="shape=singleArrow;direction=south;whiteSpace=wrap;html=1;fillColor=#010101;" parent="1" vertex="1">
+          <mxGeometry x="950" y="600" width="20" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="RyltzsJ-rO4vHGCkNSkB-21" value="" style="shape=singleArrow;direction=south;whiteSpace=wrap;html=1;fillColor=#010101;" parent="1" vertex="1">
+          <mxGeometry x="600" y="160" width="20" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="RyltzsJ-rO4vHGCkNSkB-22" value="バックエンド：各アプリのAPI  " style="swimlane;fillColor=#BAC8D3;strokeColor=#23445d;" parent="1" vertex="1">
+          <mxGeometry x="650" y="990" width="330" height="200" as="geometry" />
+        </mxCell>
+        <mxCell id="RyltzsJ-rO4vHGCkNSkB-25" value="Users / Blog / Comments / Followers / Tags / Search /&amp;nbsp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="RyltzsJ-rO4vHGCkNSkB-22" vertex="1">
+          <mxGeometry x="10" y="50" width="310" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="RyltzsJ-rO4vHGCkNSkB-26" value="Messengers / Exercise / ExerciseLogs / Timer&amp;nbsp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="RyltzsJ-rO4vHGCkNSkB-22" vertex="1">
+          <mxGeometry x="10" y="87" width="310" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="RyltzsJ-rO4vHGCkNSkB-27" value="(Timerは Celery + WebPush 通知でバックグラウンド動作)&amp;nbsp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="RyltzsJ-rO4vHGCkNSkB-22" vertex="1">
+          <mxGeometry y="130" width="310" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="RyltzsJ-rO4vHGCkNSkB-28" value="" style="shape=singleArrow;direction=south;whiteSpace=wrap;html=1;fillColor=#010101;" parent="1" vertex="1">
+          <mxGeometry x="790" y="940" width="20" height="30" as="geometry" />
+        </mxCell>
+        <UserObject label="2025/09/30 若林" placeholders="1" id="265EPu6d8YRLlCx4y4Xy-1">
+          <mxCell style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;" parent="1" vertex="1">
+            <mxGeometry x="1130" y="1080" width="160" height="150" as="geometry" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="265EPu6d8YRLlCx4y4Xy-2" value="ユーザー操作からAPIまでのリクエストフロー" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;" parent="1" vertex="1">
+          <mxGeometry x="210" y="40" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="265EPu6d8YRLlCx4y4Xy-3" value="&lt;strong data-end=&quot;65&quot; data-start=&quot;20&quot;&gt;ユーザーがどう操作して、フロントエンドを経由して、どのAPIにリクエストが流れるかを示しています。&lt;/strong&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="30" y="90" width="290" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4z8xClsyI4fOKHIbbLPI-1" value="アプリ名：FitSpin" style="text;strokeColor=none;fillColor=none;html=1;fontSize=24;fontStyle=1;verticalAlign=middle;align=center;" parent="1" vertex="1">
+          <mxGeometry x="80" y="155" width="100" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

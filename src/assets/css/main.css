@@ -1,0 +1,10 @@
+/* 全体の背景設定 */
+.gacha-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #FFFDE7; /* レモンクリーム背景 */
+  min-height: 100vh;
+  font-family: 'Arial Rounded MT Bold', 'Helvetica', sans-serif;
+}
