@@ -8,7 +8,5 @@ FitSpin はフィットネス管理アプリです。
 
 ## インストール
 
-1. リポジトリをクローン
-   ```bash
-   git clone [https://github.com/Mariko000/FitSpin.git](https://github.com/Mariko000/FitSpin.git)
-   cd FitSpin
+Domain
+fit-spin-cofq.vercel.app
